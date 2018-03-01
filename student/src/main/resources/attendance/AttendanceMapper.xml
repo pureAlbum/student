@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attendance.mapper.AttendanceMapper">
+
+	<!-- id, userid, date, 1st, 2nd, 3rd, 4th, 5th, 6th -->
+	<resultMap type="attendance.model.AttendanceModel" id="BaseResultMap">
+		<result column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="date" property="date" />
+		<result column="1st" property="date1st" />
+		<result column="2nd" property="date2nd" />
+		<result column="3rd" property="date3rd" />
+		<result column="4th" property="date4th" />
+		<result column="5th" property="date5th" />
+		<result column="6th" property="date6th" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+			<if test="userid !=null and userid != ''">
+				and userid = #{userid}
+			</if>
+			<if test="date !=null and date != ''">
+				and date = #{date}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectbyuser" resultMap="BaseResultMap"
+		parameterType="Object">
+		SELECT * FROM student.work_attendance
+		<include refid="Example_Where_Clause"></include>
+		limit #{page},#{rows};
+	</select>
+	<select id="selectcount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from student.work_attendance
+		<include refid="Example_Where_Clause"></include>;
+	</select>
+	<!-- id, userid, date, 1st, 2nd, 3rd, 4th, 5th, 6th -->
+	<resultMap type="attendance.model.AddAttendanceModel" id="AddResultMap">
+		<result column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="name" property="name" />
+		<result column="date" property="date" />
+		<result column="1st" property="date1st" />
+		<result column="2nd" property="date2nd" />
+		<result column="3rd" property="date3rd" />
+		<result column="4th" property="date4th" />
+		<result column="5th" property="date5th" />
+		<result column="6th" property="date6th" />
+	</resultMap>
+	<select id="selectandname" parameterType="Object" resultMap="AddResultMap">
+		SELECT a.id as id, userid, date, 1st, 2nd, 3rd, 4th, 5th, 6th, name, code
+		FROM student.work_attendance a 
+		join student.user b 
+		on a.userid=b.code
+		where 1=1
+		<if test="id !=null">
+			and a.id = #{id}
+		</if>
+		<if test="date !=null and date != ''">
+			and date = #{date}
+		</if>
+		limit #{page},#{rows};
+	</select>
+		<delete id="delbyid" parameterType="Object">
+		DELETE FROM student.work_attendance WHERE `id`=#{id};
+	</delete>
+	<insert id="insert" parameterType="Object">
+		INSERT INTO student.work_attendance (id, userid, date, 1st, 2nd, 3rd, 4th, 5th, 6th) VALUES 
+		(#{id}, #{userid}, #{date}, #{date1st}, #{date2nd}, #{date3rd}, #{date4th},#{date5th},#{date6th}); 
+	</insert>
+	<update id="update" parameterType="Object">
+		UPDATE student.work_attendance SET 
+		<trim suffixOverrides=",">
+			<if test="userid != null and userid != ''">
+				`userid`=#{userid},
+			</if>
+			<if test="date != null and date != ''">
+				`date`=#{date},
+			</if>
+			<if test="date1st != null and date1st != ''">
+				`1st`=#{date1st},
+			</if>
+			<if test="date2nd != null and date2nd != ''">
+				`2nd`=#{date2nd},
+			</if>
+			<if test="date3rd != null and date3rd != ''">
+				`3rd`=#{date3rd},
+			</if>
+			<if test="date4th != null and date4th != ''">
+				`4th`=#{date4th},
+			</if>
+			<if test="date5th != null and date5th != ''">
+				`5th`=#{date5th},
+			</if>
+			<if test="date6th != null and date6th != ''">
+				`6th`=#{date6th},
+			</if>
+		</trim>
+		WHERE `id`=#{id};
+	</update>
+</mapper>

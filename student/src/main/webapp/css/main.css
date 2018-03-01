@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.title{
+	position: absolute;
+	top:40px;
+	left: 25%;
+	font-size: 40px;
+	font-family: Impact, Charcoal, sans-serif;
+}
+body{
+	font-size:18px;
+}
+.sys{
+	position: absolute;
+	top:10px;
+	right: 10px;
+	font-size:16px;
+}
+a{
+	text-decoration:none;
+}

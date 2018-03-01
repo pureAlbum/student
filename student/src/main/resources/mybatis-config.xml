@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+	<typeAliases>
+<!-- 		 <typeAlias alias="Class" type="sys.model.Classmodel"/> -->
+<!-- 		 <typeAlias alias="goods" type="sys.model.goodsModel"/> -->
+	</typeAliases>
+	<mappers>
+       <mapper resource="sys/UserMapper.xml" />
+       <mapper resource="sys/PermissionMapper.xml" />
+       <mapper resource="sys/RoleMapper.xml" />
+       <mapper resource="sys/ClassMapper.xml" />
+       <mapper resource="attendance/AttendanceMapper.xml" />
+       <mapper resource="attendance/LeaveMapper.xml" />
+       <mapper resource="work/HomeworkMapper.xml" />
+       <mapper resource="work/WorkendMapper.xml" />
+    </mappers>
+	
+	
+</configuration>

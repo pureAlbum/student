@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.mapper.WorkendMapper">
+
+	<!-- Result Map -->
+	<!-- 	id, userid, workcode, oneself_score, teacher_score -->
+	<resultMap id="BaseResultMap" type="work.model.WorkendModel">
+		<result column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="workcode" property="workcode"/>
+		<result column="oneself_score" property="oneselfScore"/>
+		<result column="teacher_score" property="teacherScore"/>
+	</resultMap>
+	
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+			<if test="userid != null and userid != ''">
+				and userid = #{userid}
+			</if>
+			<if test="workcode != null and workcode != ''">
+				and workcode = #{workcode}
+			</if>
+			<if test="oneselfScore !=null and oneselfScore != ''">
+				and oneself_score = #{oneselfScore}
+			</if>
+			<if test="teacherScore != null and teacherScore != ''">
+				and teacher_score = #{teacherScore}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectAll2" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM student.workend limit #{page} , #{rows};
+	</select>
+	<select id="selectCount2" resultType="java.lang.Integer" parameterType="Object">
+		select count(1) from student.workend where 1=1 
+		<if test="userid != null and userid != ''">
+			and userid = #{userid}
+		</if>
+	</select>
+	<delete id="delbyid2" parameterType="Object">
+		DELETE FROM `student`.`workend` WHERE `id`=#{id};
+	</delete>
+	<insert id="insert2" parameterType="Object">
+		INSERT INTO `student`.`workend` (id, userid, workcode, oneself_score, teacher_score) VALUES (#{id}, #{userid}, #{workcode}, #{oneselfScore}, #{teacherScore}); 
+	</insert>
+	<update id="update2" parameterType="Object">
+		UPDATE `student`.`workend` SET 
+		<trim suffixOverrides=",">
+			<if test="userid != null and userid != ''">
+				`userid`=#{userid},
+			</if>
+			<if test="workcode != null and workcode != ''">
+				`workcode`=#{workcode},
+			</if>
+			<if test="oneselfScore != null and oneselfScore != ''">
+				`oneself_score`=#{oneselfScore},
+			</if>
+			<if test="teacherScore != null and teacherScore != ''">
+				`teacher_score`=#{teacherScore},
+			</if>
+		</trim>
+		WHERE `id`=#{id};
+	</update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="system.mapper.PermissionMapper">
+
+	<!-- Result Map -->
+	<resultMap id="BaseResultMap" type="system.model.RolePerModel">
+		<result column="menu_code" property="menu_code" />
+		<result column="permission_name" property="permission_name" />
+		<result column="url" property="url"/>
+		<result column="pcode" property="pcode" />
+	</resultMap>
+	
+	<select id="selectPer" resultMap="BaseResultMap" parameterType="Object">
+		SELECT menu_code, permission_name, url, pcode FROM student.role_permission_rel a 
+		left join student.permission b on b.id = a.menu_code where role_code = #{role};
+	</select>
+</mapper>

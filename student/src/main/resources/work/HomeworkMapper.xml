@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="work.mapper.HomeworkMapper">
+
+	<!-- Result Map -->
+	<!-- id, teachercode, tm, grade_standard, type -->
+	<resultMap id="BaseResultMap" type="work.model.HomeworkModel">
+		<result column="id" property="id" />
+		<result column="teachercode" property="teachercode" />
+		<result column="tm" property="tm"/>
+		<result column="grade_standard" property="gradeStandard"/>
+		<result column="type" property="type"/>
+	</resultMap>
+	
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+			<if test="teachercode != null and teachercode != ''">
+				and teachercode = #{teachercode}
+			</if>
+			<if test="tm != null and tm != ''">
+				and tm = #{tm}
+			</if>
+			<if test="gradeStandard !=null and gradeStandard != ''">
+				and grade_standard = #{gradeStandard}
+			</if>
+			<if test="type != null and type != ''">
+				and type = #{type}
+			</if>
+		</trim>
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="Object">
+		SELECT * FROM student.homework where 1=1
+		<if test="teachercode != null and teachercode != ''">
+			and teachercode = #{teachercode}
+		</if>
+		limit #{page} , #{rows};
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer" parameterType="Object">
+		select count(1) from student.homework where 1=1 
+		<if test="teachercode != null and teachercode != ''">
+			and teachercode = #{teachercode}
+		</if>
+	</select>
+	<delete id="delbyid" parameterType="Object">
+		DELETE FROM `student`.`homework` WHERE `id`=#{id};
+	</delete>
+	<insert id="insert" parameterType="Object">
+		INSERT INTO `student`.`homework` (teachercode, tm, grade_standard, type) 
+		VALUES (#{teachercode}, #{tm}, #{gradeStandard}, #{type}); 
+	</insert>
+	<update id="update" parameterType="Object">
+		UPDATE `student`.`homework` SET 
+		<trim suffixOverrides=",">
+			<if test="teachercode != null and teachercode != ''">
+				`teachercode`=#{teachercode},
+			</if>
+			<if test="tm != null and tm != ''">
+				`tm`=#{tm},
+			</if>
+			<if test="gradeStandard != null and gradeStandard != ''">
+				`grade_standard`=#{gradeStandard},
+			</if>
+			<if test="type != null and type != ''">
+				`type`=#{type},
+			</if>
+		</trim>
+		WHERE `id`=#{id};
+	</update>
+</mapper>

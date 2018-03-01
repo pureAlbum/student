@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="attendance.mapper.LeaveMapper">
+
+	<!-- 	id, user_code, why, time, begin_time, end_time, status -->
+	<resultMap type="attendance.model.LeaveModel" id="BaseResultMap">
+		<result column="id" property="id"/>
+		<result column="user_code" property="user_code"/>
+		<result column="why" property="why"/>
+		<result column="time" property="time"/>
+		<result column="begin_time" property="begin_time"/>
+		<result column="end_time" property="end_time"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	<select id="selectbyid" resultMap="BaseResultMap" parameterType="Object">
+		select * from student.leave where user_code = #{user_code};
+	</select>
+	
+	<insert id="addnew" parameterType="Object">
+		insert into student.`leave`(user_code, why, time, begin_time, end_time, status)
+		values(#{user_code},#{why},#{time},#{begin_time},#{end_time},#{status});
+	</insert>
+	
+	<delete id="delapplication" parameterType="Object">
+		DELETE FROM `student`.`leave` WHERE `id`=#{id};
+	</delete>
+	
+	<update id="update" parameterType="Object">
+		UPDATE `student`.`leave` SET `status`=#{status} WHERE `id`=#{id};
+	</update>
+
+</mapper>
